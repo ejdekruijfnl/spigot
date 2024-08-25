@@ -1,0 +1,22 @@
+---
+runners:
+  - generator:
+      type: "cisco:asa"
+      include_timestamp: true
+    output:
+      type: file
+      directory: "/var/tmp"
+      pattern: "spigot_asa_*.log"
+      delimiter: "\n"
+    interval: 5s
+    records: 250
+  - generator:
+      type: "fortinet:firewall"
+      include_timestamp: true
+    output:
+      type: file
+      directory: "/var/tmp"
+      pattern: "spigot_fortinet_firewall_*.log"
+      delimiter: "\n"
+    interval: 10s
+    records: 2048

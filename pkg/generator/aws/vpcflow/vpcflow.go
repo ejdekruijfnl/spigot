@@ -3,7 +3,7 @@
 // For the configuration file there are no options so only the following is needed:
 //
 //   - generator:
-//       type: "aws:vpcflow"
+//     type: "aws:vpcflow"
 package vpcflow
 
 import (
@@ -24,7 +24,7 @@ const Name = "aws:vpcflow"
 var (
 	actions         = [...]string{"ACCEPT", "REJECT"}
 	statuses        = [...]string{"OK", "SKIPDATA", "NODATA"}
-	vpcFlowTemplate = "2 123456789010 eni-1235b8ca123456789 {{.SrcAddr}} {{.DstAddr}} {{.SrcPort}} {{.DstPort}} {{.Protocol}} {{.Packets}} {{.Bytes}} {{.Start}} {{.End}} {{.Action}} {{.LogStatus}}"
+	vpcFlowTemplate = "2 {{.Id}} eni-{{.Eni}} {{.SrcAddr}} {{.DstAddr}} {{.SrcPort}} {{.DstPort}} {{.Protocol}} {{.Packets}} {{.Bytes}} {{.Start}} {{.End}} {{.Action}} {{.LogStatus}}"
 )
 
 // Vpcflow holds the random fields for a vpcflow record.
@@ -32,6 +32,8 @@ type Vpcflow struct {
 	//	version     string
 	//	accountId   string
 	//	interfaceId string
+	Id        int
+	Eni       int
 	SrcAddr   net.IP
 	DstAddr   net.IP
 	SrcPort   int
@@ -90,6 +92,8 @@ func (v *Vpcflow) Next() ([]byte, error) {
 }
 
 func (v *Vpcflow) randomize() {
+	v.Id = rand.Intn(1048576)
+	v.Eni = rand.Intn(1048576223) * rand.Intn(1048576223)
 	v.SrcAddr = random.IPv4()
 	v.DstAddr = random.IPv4()
 	v.SrcPort = random.Port()

@@ -3,12 +3,12 @@
 //
 // Configuration:
 //
-//	 event_type: Specify the type of event to generate, or leave blank for random.
-//	             Valid values are: alert, netflow.
+//		 event_type: Specify the type of event to generate, or leave blank for random.
+//		             Valid values are: alert, netflow.
 //
-//   - generator:
-//       type: aws:firewall
-//	     event_type: netflow
+//	  - generator:
+//	      type: aws:firewall
+//		     event_type: netflow
 package firewall
 
 import (
@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net"
+
 	"strconv"
 	"time"
 
@@ -162,6 +163,7 @@ func (g *Generator) randomize() {
 		FirewallName:     fmt.Sprintf("Firewall-%d", rand.Intn(100)),
 		AvailabilityZone: random.AWSAvailabilityZone(),
 		EventTimestamp:   strconv.Itoa(int(now.Unix())),
+		//EventTimestamp: random.Randomtime(),
 		Event: EventData{
 			Timestamp: now.Format(timestampFmt),
 			FlowID:    rand.Int(),

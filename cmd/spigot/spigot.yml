@@ -1,22 +1,72 @@
 ---
 runners:
-  - generator:
-      type: "cisco:asa"
-      include_timestamp: false
-    output:
-      type: file
-      directory: "/var/tmp"
-      pattern: "spigot_asa_*.log"
-      delimiter: "\n"
-#    interval: 5s
-    records: 1
+
+#Land 1
   - generator:
       type: "fortinet:firewall"
-      include_timestamp: false
+      include_timestamp: true
     output:
       type: file
-      directory: "/var/tmp"
+      directory: "/Users/wadewilson/Documents/spigot/cmd/spigot"
       pattern: "spigot_fortinet_firewall_*.log"
       delimiter: "\n"
-#    interval: 5s
+    #interval: 5s
     records: 20
+
+#Land 2
+  - generator:
+      type: "cisco:asa"
+      include_timestamp: true
+    output:
+      type: file
+      directory: "/Users/wadewilson/Documents/spigot/cmd/spigot"
+      pattern: "spigot_cisco_asa_*.log"
+      delimiter: "\n"
+    #interval: 5s
+    records: 20
+
+  - generator:
+      type: "aws:firewall"
+      even_type: "netflow"
+      include_timestamp: true
+    output:
+      type: file
+      directory: "/Users/wadewilson/Documents/spigot/cmd/spigot"
+      pattern: "aws_netflow_*.log"
+      delimiter: "\n"
+    #interval: 5s
+    records: 20
+
+  - generator:
+      type: "aws:firewall"
+      even_type: "alert"
+      include_timestamp: true
+    output:
+      type: file
+      directory: "/Users/wadewilson/Documents/spigot/cmd/spigot"
+      pattern: "aws_alert_*.log"
+      delimiter: "\n"
+    #interval: 5s
+    records: 20
+
+  - generator:
+      type: "aws:vpcflow"
+      include_timestamp: true
+    output:
+      type: file
+      directory: "/Users/wadewilson/Documents/spigot/cmd/spigot"
+      pattern: "aws_vpcflow_*.log"
+      delimiter: "\n"
+    #interval: 5s
+    records: 20  
+ 
+  - generator:
+      type: "citrix:cef"
+      include_timestamp: true
+    output:
+      type: file
+      directory: "/Users/wadewilson/Documents/spigot/cmd/spigot"
+      pattern: "citrix_cef_*.log"
+      delimiter: "\n"
+    #interval: 5s
+    records: 20   
